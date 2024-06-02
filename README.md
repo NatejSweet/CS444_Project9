@@ -11,12 +11,12 @@ Collaborators:
 `make test` to compile and run testfs
 
 ## Files
-`testfs.c`: 
-`block.c`: 
-`image.c`: 
-`block.h`: 
-`image.h`: 
-`ctest.h`: 
+`testfs.c`: \
+`block.c`: \
+`image.c`: \
+`block.h`: \
+`image.h`: \
+`ctest.h`: \
 
 ## Data
 reads and writes data to disk

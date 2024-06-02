@@ -162,6 +162,28 @@ void test_ls(void)
     CTEST_ASSERT(1==1, "Test ls");
 }
 
+void test_namei(void)
+{
+    struct inode *in = namei("/");
+    CTEST_ASSERT(in->inode_num==0, "Test namei");
+    in = namei("/foo");
+    CTEST_ASSERT(in->inode_num==1, "Test namei");
+    in = namei("/foo/bar");
+    CTEST_ASSERT(in->inode_num==2, "Test namei");
+}
+
+void test_directory_make(void)
+{
+    int dir_make_result = directory_make( "/foo");
+    CTEST_ASSERT(dir_make_result==0, "Test directory_make executes w/out error");
+    struct directory *dir = directory_open(1);
+    struct directory_entry ent;
+    directory_get(dir, &ent);
+    CTEST_ASSERT(ent.inode_num==1, "Test directory_make");
+    CTEST_ASSERT(strcmp(ent.name, "foo")==0, "Test directory_make set the correct name");
+    directory_close(dir);
+}
+
 #ifdef CTEST_ENABLE
 int main() 
 {
@@ -188,8 +210,11 @@ int main()
     test_mkfs();
     test_directory_get();
     test_ls();
+    test_namei();
+    test_directory_make();
     CTEST_RESULTS();
-    CTEST_EXIT();
+    CTEST_EXIT();\
+
     return 0;
 }
 
